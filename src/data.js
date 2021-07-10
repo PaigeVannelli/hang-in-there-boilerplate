@@ -1,9 +1,3 @@
-// query selector variables go here 👇
-
- const posterImg = document.getElementById('poster-img')
-
-// we've provided you with some data to work with 👇
-
 var images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -103,30 +97,3 @@ var quotes = [
 ];
 var savedPosters = [];
 var currentPoster;
-
-// event listeners go here 👇
-
-document.addEventListener('click', manageClickEvents)
-
-// functions and event handlers go here 👇
-
-function manageClickEvents(event) {
-  if (event.target.id === 'show-random-button') {
-    changePosterImg()
-  }
-}
-
-function changePosterImg() {
-  posterImg.src = returnRandomImageSrc()
-}
-
-function returnRandomImageSrc() {
-  return randomCover = images[getRandomIndex(images)]
-}
-
-// (we've provided one for you to get you started)!
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
-}
-
-// document.addEventListener('click', changePosterImg)
