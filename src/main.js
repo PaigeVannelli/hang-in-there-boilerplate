@@ -116,8 +116,10 @@ function manageClickEvents(event) {
     changePoster()
   } else if (event.target.id === 'show-form-button') {
     displayForm()
-  } else if (event.target.id === 'show-main-button') {
+  } else if (event.target.id === 'show-main-button' || event.target.id === 'back-to-main-button') {
     showMain()
+  } else if (event.target.id === 'show-saved-button') {
+    showSavedPosters()
   }
 }
 
@@ -146,6 +148,11 @@ function displayForm() {
 function showMain() {
   hide('poster-form')
   show('main-poster')
+}
+
+function showSavedPosters() {
+  hide('main-poster')
+  show('saved-posters')
 }
 
 function hide(id) {
