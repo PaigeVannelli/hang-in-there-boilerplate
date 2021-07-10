@@ -114,6 +114,8 @@ window.addEventListener('click', manageClickEvents)
 function manageClickEvents(event) {
   if (event.target.id === 'show-random-button') {
     changePoster()
+  } else if (event.target.id === 'show-form-button') {
+    displayForm()
   }
 }
 
@@ -126,15 +128,24 @@ function changePoster() {
   posterQuote.innerText = returnRandomData(quotes)
 }
 
-// function returnRandomImageSrc() {
-//   return randomCover = images[getRandomIndex(images)]
-// }
 function returnRandomData(data) {
   return random = data[getRandomIndex(data)]
 }
 
-// (we've provided one for you to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
+}
+
+function displayForm() {
+  hide('main-poster')
+  show('poster-form')
+}
+
+function hide(id) {
+  document.getElementById(id).classList.add("hidden");
+}
+
+function show(id) {
+  document.getElementById(id).classList.remove("hidden");
 }
 
