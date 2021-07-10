@@ -106,23 +106,31 @@ var currentPoster;
 
 // event listeners go here 👇
 
-window.addEventListener('load', changePosterImg)
+window.addEventListener('load', changePoster)
 window.addEventListener('click', manageClickEvents)
 
 // functions and event handlers go here 👇
 
 function manageClickEvents(event) {
   if (event.target.id === 'show-random-button') {
-    changePosterImg()
+    changePoster()
   }
 }
 
-function changePosterImg() {
-  posterImg.src = returnRandomImageSrc()
+function changePoster() {
+  const posterImg = document.getElementById('poster-img')
+  const posterTitle = document.getElementById('poster-title')
+  const posterQuote = document.getElementById('poster-quote')
+  posterImg.src = returnRandomData(images)
+  posterTitle.innerText = returnRandomData(titles)
+  posterQuote.innerText = returnRandomData(quotes)
 }
 
-function returnRandomImageSrc() {
-  return randomCover = images[getRandomIndex(images)]
+// function returnRandomImageSrc() {
+//   return randomCover = images[getRandomIndex(images)]
+// }
+function returnRandomData(data) {
+  return random = data[getRandomIndex(data)]
 }
 
 // (we've provided one for you to get you started)!
@@ -130,4 +138,3 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-// document.addEventListener('click', changePosterImg)
