@@ -106,7 +106,8 @@ var currentPoster;
 
 // event listeners go here 👇
 
-document.addEventListener('click', manageClickEvents)
+window.addEventListener('load', changePosterImg)
+window.addEventListener('click', manageClickEvents)
 
 // functions and event handlers go here 👇
 
