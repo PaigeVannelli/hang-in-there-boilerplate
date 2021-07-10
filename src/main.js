@@ -102,7 +102,7 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
-var currentPoster;
+var currentPoster = {};
 
 // event listeners go here 👇
 
@@ -120,16 +120,25 @@ function manageClickEvents(event) {
     showMain()
   } else if (event.target.id === 'show-saved-button') {
     showSavedPosters()
+  } else if (event.target.id === 'make-poster-button') {
+    makePoster()
   }
 }
 
 function changePoster() {
+  currentPoster.image = returnRandomData(images)
+  currentPoster.title = returnRandomData(titles)
+  currentPoster.quote = returnRandomData(quotes)
+  displayPoster()
+}
+
+function displayPoster() {
   const posterImg = document.getElementById('poster-img')
   const posterTitle = document.getElementById('poster-title')
   const posterQuote = document.getElementById('poster-quote')
-  posterImg.src = returnRandomData(images)
-  posterTitle.innerText = returnRandomData(titles)
-  posterQuote.innerText = returnRandomData(quotes)
+  posterImg.src = currentPoster.image
+  posterTitle.innerText = currentPoster.title
+  posterQuote.innerText = currentPoster.quote
 }
 
 function returnRandomData(data) {
@@ -161,5 +170,33 @@ function hide(id) {
 
 function show(id) {
   document.getElementById(id).classList.remove("hidden");
+}
+
+function makePoster() {
+  event.preventDefault()
+  const image = document.getElementById('poster-image-url-input').value
+  const title = document.getElementById('poster-title-input').value
+  const quote = document.getElementById('poster-quote-input').value
+  let createdPoster = new Poster(image, title, quote)
+  currentPoster = createdPoster
+  savedPosters.push(createdPoster)
+  addPosterDetails(image, title, quote)
+  displayPoster()
+  showMain()
+}
+
+function addPosterDetails(image, title, quote) {
+  images.push(image)
+  titles.push(title)
+  quotes.push(quote)
+}
+
+class Poster {
+  constructor(image, title, quote) {
+    this.id = Date.now()
+    this.imageURL = image
+    this.title = title
+    this.quote = quote
+  }
 }
 
