@@ -116,6 +116,8 @@ function manageClickEvents(event) {
     changePoster()
   } else if (event.target.id === 'show-form-button') {
     displayForm()
+  } else if (event.target.id === 'show-main-button') {
+    showMain()
   }
 }
 
@@ -139,6 +141,11 @@ function getRandomIndex(array) {
 function displayForm() {
   hide('main-poster')
   show('poster-form')
+}
+
+function showMain() {
+  hide('poster-form')
+  show('main-poster')
 }
 
 function hide(id) {
