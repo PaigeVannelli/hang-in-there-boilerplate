@@ -108,6 +108,7 @@ var currentPoster = {};
 
 window.addEventListener('load', changePoster)
 window.addEventListener('click', manageClickEvents)
+document.getElementById('saved-posters-grid').addEventListener('dblclick', deletePoster)
 
 // functions and event handlers go here 👇
 
@@ -122,13 +123,24 @@ function manageClickEvents(event) {
     showSavedPosters()
   } else if (event.target.id === 'make-poster-button') {
     makePoster()
+  } else if (event.target.id === 'save-poster-button') {
+    savePoster()
   }
 }
 
+// function changePoster() {
+//   currentPoster.image = returnRandomData(images)
+//   currentPoster.title = returnRandomData(titles)
+//   currentPoster.quote = returnRandomData(quotes)
+//   displayPoster()
+// }
+
 function changePoster() {
-  currentPoster.image = returnRandomData(images)
-  currentPoster.title = returnRandomData(titles)
-  currentPoster.quote = returnRandomData(quotes)
+  currentPoster = new Poster(
+    returnRandomData(images),
+    returnRandomData(titles),
+    returnRandomData(quotes)
+  )
   displayPoster()
 }
 
@@ -136,6 +148,9 @@ function displayPoster() {
   const posterImg = document.getElementById('poster-img')
   const posterTitle = document.getElementById('poster-title')
   const posterQuote = document.getElementById('poster-quote')
+  // currentPoster = {
+    
+  // }
   posterImg.src = currentPoster.image
   posterTitle.innerText = currentPoster.title
   posterQuote.innerText = currentPoster.quote
@@ -179,7 +194,7 @@ function makePoster() {
   const quote = document.getElementById('poster-quote-input').value
   let createdPoster = new Poster(image, title, quote)
   currentPoster = createdPoster
-  savedPosters.push(createdPoster)
+  // savedPosters.push(currentPoster)
   addPosterDetails(image, title, quote)
   displayPoster()
   showMain()
@@ -194,9 +209,47 @@ function addPosterDetails(image, title, quote) {
 class Poster {
   constructor(image, title, quote) {
     this.id = Date.now()
-    this.imageURL = image
+    this.image = image
     this.title = title
     this.quote = quote
   }
+}
+
+function savePoster() {
+  if (!savedPosters.includes(currentPoster)) {
+    savedPosters.push(currentPoster)
+  }
+  displaySavedPosters()
+  showSaved()
+}
+
+function displaySavedPosters() {
+  const allPosters = document.getElementById('saved-posters-grid')
+  allPosters.innerHTML = ''
+  savedPosters.forEach(poster => {
+    let posterHTML = 
+    `<article class='mini-poster' id='${poster.id}'>
+      <img src='${poster.image}'>
+      <h2>${poster.title}</h2><br>
+      <h4> ${poster.quote}</h4>
+    </article>`
+    allPosters.innerHTML += posterHTML
+  })
+}
+
+function showSaved() {
+  hide('main-poster')
+  show('saved-posters')
+}
+
+function deletePoster(event) {
+  if (event.target.closest.id !== 'saved-posters-grid') {
+    for (let i = 0; i < savedPosters.length; i++) {
+      if (savedPosters[i].id === parseInt(event.target.closest('article').id)) {
+        savedPosters.splice(i, 1)
+      }
+    }
+  }
+  displaySavedPosters()
 }
 
